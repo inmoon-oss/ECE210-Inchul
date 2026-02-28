@@ -7,7 +7,6 @@
 
 module tt_um_lif (
     input  wire [7:0] ui_in,    // Dedicated inputs
-    input  wire [7:0] ui_in_derivative,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
     output wire [7:0] uio_out,  // IOs: Output path
@@ -19,14 +18,15 @@ module tt_um_lif (
 
   // All output pins must be assigned. If not used, assign to 0.
   assign uio_out [6:0] = 0;
-  assign uio_oe  = 1;
+  assign uio_oe  [7] = 1;
+  assign uio_oe  [6:0] = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, uio_in, 1'b0};
+  wire _unused = &{ena, 1'b0};
 
-  // instantiate the lif neuron
+  // instantiate the lif neuron: ui_in + uio[6:0] (ramp on uio[6:0])
   lif lif1 (
-    .current(ui_in + ui_in_derivative),
+    .current(ui_in + {1'b0, uio_in[6:0]}),
     .clk(clk),
     .reset_n(rst_n),
     .state(uo_out),

@@ -13,8 +13,7 @@ In order to process the tactile data generated from a capacitive sensor, the sig
 
 ## How to test
 
-Generate a fluctuating signal and put into dut.ui_in.value. Put its derivative into dut.ui_in_derivative.value. 
-In this test, a simple ramped signal of 200V/s is used. LIF is expected to fire in 3rd clock cycle (Threshold set to 400). 
+Put the rectified signal into dut.ui_in.value and the ramp/derivative signal into dut.uio_in.value (uio[6:0]). In this test, a ramped signal of 200/s is applied to uio[6:0]. 
 
 ## External hardware
 

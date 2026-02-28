@@ -42,15 +42,15 @@ pinout:
   uo[6]: "State variable bit [6]"
   uo[7]: "State variable bit [7]"
 
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: "spike bit"
+  # Bidirectional pins (uio[6:0] = ramp/derivative input, uio[7] = spike output)
+  uio[0]: "Ramp bit [0]"
+  uio[1]: "Ramp bit [1]"
+  uio[2]: "Ramp bit [2]"
+  uio[3]: "Ramp bit [3]"
+  uio[4]: "Ramp bit [4]"
+  uio[5]: "Ramp bit [5]"
+  uio[6]: "Ramp bit [6]"
+  uio[7]: "Spike bit"
 
 # Do not change!
 yaml_version: 6
