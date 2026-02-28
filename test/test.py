@@ -36,7 +36,7 @@ async def test_project(dut):
         dut.ui_in_derivative.value = RAMP_SLOPE_PER_S
         cycles_to_wait = CYCLES_PER_RAMP_STEP
         if step == 3:
-            assert dut.uio_out[7].value == 1, f"Expected spike=1 at cycle 3, got {dut.uio_out[7].value}"
+            assert dut.uio_out.value == 1, f"Expected spike=1 at cycle 3, got {dut.uio_out.value}"
             cycles_to_wait -= 3
         await ClockCycles(dut.clk, cycles_to_wait)
 
