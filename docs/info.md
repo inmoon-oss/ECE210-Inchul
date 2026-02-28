@@ -9,11 +9,13 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-In order to process the tactile data generated from a capacitive sensor, the signal from each channel is rectified and summed with its derivative form. This signal is fed into the 2-layer SNN for slip detection.
+In order to process the tactile data generated from a capacitive sensor, the signal from each channel is rectified and summed with its derivative form. This signal is fed into the first layer of the SNN for slip detection.
+This example file shows the 2 signal as inputs, and it is summed and assigned into a single LIF neuron.
 
 ## How to test
 
-Put the rectified signal into dut.ui_in.value and the ramp/derivative signal into dut.uio_in.value (uio[6:0]). In this test, a ramped signal of 200/s is applied to uio[6:0]. 
+Put the derivative signal into dut.ui_in.value and the ramp signal into dut.uio_in.value (uio[6:0]). In this test, a ramped signal of 100V/s is applied to uio[6:0]. Its derivative value(100) is applied to ui_in.
+after 2 clock cycles, LIF neuron fires (threshold 200). uio[7] is used for the spike output. 
 
 ## External hardware
 
