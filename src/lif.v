@@ -17,7 +17,7 @@ module lif (
 
         if (!reset_n) begin
             state <= 0;
-            threshold <= 400;
+            threshold <= 100;
         end else begin
             state <= next_state;
         end

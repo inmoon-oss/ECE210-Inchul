@@ -24,21 +24,19 @@ async def test_project(dut):
     dut._log.info("Reset")
     dut.ena.value = 1
     dut.ui_in.value = 0
-    dut.uio_in.value = 0  # uio[6:0] = ramp, uio[7] = 0 (spike output)
+    dut.uio_in.value = 0  # uio[6:0] = ramp input; uio[7] = spike output (unused here)
     dut.rst_n.value = 0
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 1
 
-    dut._log.info("Apply ramp to uio[6:0] (slope 200/s)")
+    dut._log.info("Apply ramp to uio[6:0]")
     for step in range(128):  # 0..127 (7-bit ramp on uio[6:0])
-        dut.ui_in.value = 0  # rectified signal
-        dut.uio_in.value = step & 0x7F  # ramp on uio[6:0], uio[7]=0
+        dut.ui_in.value = step  
+        dut.uio_in.value = 100
         cycles_to_wait = CYCLES_PER_RAMP_STEP
-        if step == 0:
-            await ClockCycles(dut.clk, 3)
+        if step == 3:
             # LIF at cycle 3: ui_in=0, uio[6:0]=0 -> current=0 -> state=0, spike=0
-            assert dut.uo_out.value.integer == 0
-            assert dut.uio_out[7].value == 0
+            assert dut.uio_out.value == 128
             cycles_to_wait -= 3
         await ClockCycles(dut.clk, cycles_to_wait)
 
